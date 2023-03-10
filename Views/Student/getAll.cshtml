@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Model.EF.Student>
+
+@{
+    ViewBag.Title = "getAll";
+}
+
+<h2>getAll</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.age)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.age)
+        </td>
+        <td>
+            @Html.ActionLink("Chinh sua", "Edit", new { id = item.id.Trim() })) |
+            @Html.ActionLink("Chi tiet", "Details", new { id=item.id.Trim() }) |
+            @Html.ActionLink("Xoa", "Delete", new { id=item.id.Trim() })
+        </td>
+    </tr>
+}
+
+</table>

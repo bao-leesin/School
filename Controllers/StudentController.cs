@@ -17,18 +17,22 @@ namespace School.Controllers
         }
 
         public ActionResult getAll() {
-        
-            return View();
+            var dao = new StudentDao();
+            var students = dao.getAll();
+            return View(students);
         }
+
         public ActionResult Details(string id) { 
             var dao = new StudentDao();
             var student = dao.getDetail(id);
             return View(student);
         }
+
         public ActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Create(Student student)
         {
@@ -37,5 +41,30 @@ namespace School.Controllers
                return RedirectToAction($"Details/{id}");
             
         }
+   
+        public ActionResult Edit(string id)
+        {
+            var student = new StudentDao().getDetail(id);
+            return View(student);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Student student)
+        {
+            var dao = new StudentDao();
+            bool id = dao.Update(student);
+            return RedirectToAction($"Details/{student.id}");
+        }
+        
+
+        public ActionResult Delete(string id)
+        {
+            var dao = new StudentDao();
+            dao.Delete(id);  
+            var students = dao.getAll();
+            return View("getAll",students);
+        }
+
+        
     }
 }
