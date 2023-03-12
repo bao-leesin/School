@@ -1,44 +1,44 @@
-﻿using Model.EF;
+﻿using Microsoft.Ajax.Utilities;
 using Model.DAO;
 using School.Common;
-
+using School.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Web;
 using System.Web.Mvc;
-using School.Models;
 
-namespace School.Areas.User.Controllers
+namespace School.Controllers
 {
     public class LoginController : Controller
     {
-        // GET: User/Login
+        // GET: Login
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Login() { return View(); }
+        public ActionResult LoginStudent() { return View(); }
 
         [HttpPost]
-        public ActionResult Login(LoginModel data) {
+        public ActionResult LoginStudent(LoginModel data)
+        {
             var dao = new StudentDao();
-            var result = dao.Login(data.Username,data.Password);
+            var result = dao.Login(data.Username, data.Password);
             if (result)
             {
-                var student = dao.getDetail(data.Username);
-                var studentSession = new StudentLogin(student.id,student.name);
-                Session.Add(CommonContants.STUDENT_SESSION,student);
-                return RedirectToAction("Index","Home");
+                //var student = dao.getDetail(data.Username);
+                var studentSession = new StudentLogin(data.Username, data.Password);
+                // Thêm mới hoặc thay thế nếu đã có session cho student
+                Session[CommonContants.STUDENT_SESSION] = studentSession;
+                return RedirectToAction("Index", "Student");
             }
             else
             {
                 ModelState.AddModelError("", "Failed");
             }
             return View();
-
-
         }
     }
 }

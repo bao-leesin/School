@@ -20,20 +20,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.age)
-        </td>
-        <td>
-            @Html.ActionLink("Chinh sua", "Edit", new { id = item.id.Trim() })) |
-            @Html.ActionLink("Chi tiet", "Details", new { id=item.id.Trim() }) |
-            @Html.ActionLink("Xoa", "Delete", new { id=item.id.Trim() })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.age)
+            </td>
+            <td>
+                @Html.ActionLink("Chinh sua", "Edit", new { id = item.id.Trim() }))
+                @Html.ActionLink("Chi tiet", "Details", new { id = item.id.Trim() })
+                @Ajax.ActionLink("Xoa", "Delete", 
+                                    new { id = item.id.Trim() },
+                                    new AjaxOptions{
+                                          Confirm = "Do u wanna delete me?",
+                                          HttpMethod = "DELETE"
+                                          })
+            </td>
+        </tr>
+    }
 
 </table>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>

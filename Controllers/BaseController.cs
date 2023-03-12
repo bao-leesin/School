@@ -10,22 +10,23 @@ namespace School.Controllers
 {
     public class BaseController : Controller
     {
-        protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        //Có vẻ là middleware kiểm tra session 
+        //override lớp OAE để can thiệp khi Action đang diễn ra
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var sess = (StudentLogin) Session[CommonContants.STUDENT_SESSION];
-            if (sess != null )
+            if (sess == null )
             {
-
-            }
-            else
-            {
-                filterContext.Result = new RedirectToRouteResult(
+                // lớp AEC với thuộc tính Result điều hướng ActionResult sang View trong RVD
+                filterContext.Result =
+                    new RedirectToRouteResult(
                     new RouteValueDictionary(
-                        new { controler = "Login", action = "Login" 
-                        }));
+                    new {
+                        action = "LoginStudent",
+                        Controller = "Login"
+                    }));
             }
-            base.OnActionExecuted(filterContext);
-
+            base.OnActionExecuting(filterContext);
         }
 
     }

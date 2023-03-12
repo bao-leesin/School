@@ -1,7 +1,7 @@
 ﻿@model School.Models.LoginModel
 
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "LoginStudent";
 }
 
 <h2>Login</h2>
@@ -9,7 +9,10 @@
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
-            @using (Html.BeginForm("Login","Login",FormMethod.Post))
+
+                    @*Action,Contro,FormType,htmlAtribute*@
+            @using (Html.BeginForm( "LoginStudent","Login",FormMethod.Post))
+
             {
                 @Html.AntiForgeryToken()
                 <h4>Use a local account to log in.</h4>
@@ -53,10 +56,10 @@
         </section>
     </div>
     @*<div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>*@
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>*@
 </div>
 
 @section Scripts {

@@ -8,12 +8,15 @@ using Model.DAO;
 
 namespace School.Controllers
 {
-    public class StudentController : Controller
+    public class StudentController : BaseController
     {
         // GET: Student
-        public ActionResult Index()
+        public ActionResult Index(string searchString, int page = 1, int pageSize = 3)
         {
-            return View();
+            var dao = new StudentDao();
+            var students = dao.listStudentsPaging(searchString,page,pageSize);
+            ViewBag.CurrentFilter = searchString;
+            return View(students);
         }
 
         public ActionResult getAll() {
@@ -22,10 +25,16 @@ namespace School.Controllers
             return View(students);
         }
 
-        public ActionResult Details(string id) { 
-            var dao = new StudentDao();
-            var student = dao.getDetail(id);
-            return View(student);
+        [HttpGet]
+        public JsonResult Details(string id) { 
+
+            var student = new StudentDao().getDetail(id);
+            return Json(new
+            {
+                id=student.id,
+                name= student.name,
+                age= student.age
+            });
         }
 
         public ActionResult Create()
@@ -48,6 +57,7 @@ namespace School.Controllers
             return View(student);
         }
 
+        //Dùng Put không được
         [HttpPost]
         public ActionResult Edit(Student student)
         {
@@ -55,14 +65,12 @@ namespace School.Controllers
             bool id = dao.Update(student);
             return RedirectToAction($"Details/{student.id}");
         }
-        
 
+        [HttpDelete]
         public ActionResult Delete(string id)
         {
-            var dao = new StudentDao();
-            dao.Delete(id);  
-            var students = dao.getAll();
-            return View("getAll",students);
+            new StudentDao().Delete(id);  
+            return View();
         }
 
         
