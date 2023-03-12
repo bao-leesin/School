@@ -7,7 +7,12 @@
             e.preventDefault()
             $ajax.({
                 url: "Student/Detail",
-                data:
+                data: { id: $.(this).data('studentId') },
+                type: "json",
+                contentType: "application/json;charset = utf-8",
+                success: (response) => {
+
+                }
             })
         })
     }
