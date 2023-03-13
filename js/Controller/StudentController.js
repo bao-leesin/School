@@ -9,7 +9,7 @@
                 url: "Student/Detail",
                 data: { id: $.(this).data('studentId') },
                 type: "json",
-                contentType: "application/json;charset = utf-8",
+              
                 success: (response) => {
 
                 }

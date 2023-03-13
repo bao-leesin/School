@@ -7,11 +7,11 @@ using System.Web;
 using System.Web.Mvc;
 
 
-namespace School.Controllers
+namespace School.Areas.Admin.Controllers
 {
     public class TeacherController : Controller
     {
-        // GET: Teacher
+        
         public ActionResult Index()
         {
             return View();

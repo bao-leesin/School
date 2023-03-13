@@ -6,21 +6,22 @@ using System.Web.Mvc;
 using Model.EF;
 using Model.DAO;
 
-namespace School.Controllers
+namespace School.Areas.Admin.Controllers
 {
     public class StudentController : BaseController
     {
         // GET: Student
+        private StudentDao dao = new StudentDao();
         public ActionResult Index(string searchString, int page = 1, int pageSize = 3)
         {
-            var dao = new StudentDao();
+            //var dao = new StudentDao();
             var students = dao.listStudentsPaging(searchString,page,pageSize);
             ViewBag.CurrentFilter = searchString;
             return View(students);
         }
 
         public ActionResult getAll() {
-            var dao = new StudentDao();
+            //var dao = new StudentDao();
             var students = dao.getAll();
             return View(students);
         }
@@ -45,7 +46,7 @@ namespace School.Controllers
         [HttpPost]
         public ActionResult Create(Student student)
         {
-                var dao = new StudentDao();
+                //var dao = new StudentDao();
                 string id = dao.Insert(student);
                return RedirectToAction("Index");
             
@@ -61,7 +62,7 @@ namespace School.Controllers
         [HttpPost]
         public ActionResult Edit(Student student)
         {
-            var dao = new StudentDao();
+            //var dao = new StudentDao();
             bool id = dao.Update(student);
             return RedirectToAction($"Details/{student.id}");
         }
