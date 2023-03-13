@@ -47,7 +47,7 @@ namespace School.Controllers
         {
                 var dao = new StudentDao();
                 string id = dao.Insert(student);
-               return RedirectToAction($"Details/{id}");
+               return RedirectToAction("Index");
             
         }
    
